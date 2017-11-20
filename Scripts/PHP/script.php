@@ -69,10 +69,19 @@ class Connection extends PDO{
 }
 
 $connect = new Connection($dsn, $login, $mdp);
-$query = "DELETE FROM tache WHERE nom='anniversaire'";
+$query = "SELECT * FROM tache";
 $connect->executeQuery($query);
-// $connect->getResults();
-// INUTILE POUR UN INSERT INTO
+// pour que le select fonctionne et s'affiche, il faut insérer les résultats dans une nouvelle variable
+// CE QUI SUIT EST INUTILE POUR UN INSERT INTO OU UN UPDATE
+$results = $connect->getResults(); 
+/* foreach($results as $ligne){
+	echo $ligne["duree"];
+	echo "<br>";
+}
+*/
+
+
+
 
 
 
