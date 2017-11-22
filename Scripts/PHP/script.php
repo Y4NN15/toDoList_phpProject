@@ -22,19 +22,6 @@ function __construct($nom, $description, $duree, $lieu, $id_tache){
 	$this->lieu=$lieu;
 	$this->id_tache=$id_tache;
 }
-
-public function affichageTache(Tache $tache){
-	echo "Tache : $tache->nom <br>";
-	echo "Description : $tache->description <br>";
-	echo "Date : $tache->date <br>";
-	echo "Duree : $tache->duree <br>";
-	echo "Lieu : $tache->lieu <br>";
-	echo "ID : $tache->id_tache <br>";
-}
-}
-
-class TacheGateway {
-	
 }
 
 	
@@ -65,6 +52,87 @@ class Connection extends PDO{
 	
 	public function getResults(){
 		return $this->stmt->fetchall();
+	}
+}
+
+class TacheGateway {
+
+private $con;
+
+	public function __construct(Connection $con){
+		$this->con=$con;
+	}
+	
+	public function filtrage($nom, $description, $date, $duree, $lieu, $id){
+		// filtrage du nom
+		$nom = filter_var($nom, FILTER_SANITIZE_STRING);
+		
+		// filtrage de la description
+		$description = filter_var($description, FILTER_SANITIZE_STRING);
+		
+		// filtrage de la date
+		$date_parsed = date_parse($date);
+		if (!checkdate($date['month'], $date['day'], $date['year'])){
+			$date = FALSE;
+		}
+		
+		// filtrage de la durée
+		// filter_var($duree, ?????????)
+		$duree = '00:30:00';
+		
+		// filtrage du lieu
+		$lieu = filter_var($lieu, FILTER_SANITIZE_STRING);
+		
+		// filtrage de l'id
+		$id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+		if (strlen($id) > 10){
+			$id = FALSE;
+		}
+		
+		if ($id == FALSE || $nom == FALSE || $description == FALSE || $date == FALSE || $duree == FALSE || $lieu == FALSE){
+			// erreur car un des attributs n'est pas valable
+		}
+	}
+	
+	public function insert($nom, $description, $date, $duree, $lieu, $id){
+		//
+		//
+		// TRAITEMENT VIA TRY CATCH
+		//
+		//
+		try {
+		$query = 'INSERT INTO tache VALUES (:nom, :description, :date, :duree, :lieu, :id)'
+		
+		$this->con->executeQuery($query, array(
+			':nom' => array($nom, PDO::PARAM_STR),
+			':description' => array($description, PDO::PARAM_STR),
+			':date' => array($date, PDO::PARAM_STR),
+			':duree' => array($duree, PDO::PARAM_STR),
+			':lieu' => array($lieu, PDO::PARAM_STR),
+			':id' => array($id, PDO::PARAM_INT)
+		));
+		
+		return $this->con->lastInsertId();
+	
+		} catch (PDOException e) {
+			// traiter erreur...
+		}
+	}
+
+	public function update($nom, $description, $date, $duree, $lieu, $id){
+		
+	}
+	
+	public function delete($nom, $description, $date, $duree, $lieu, $id){
+		// try catch
+		// OU
+		// filtrage + traitement erreurs
+		
+		
+	}
+	
+	public function recherche(){
+		
 	}
 }
 
