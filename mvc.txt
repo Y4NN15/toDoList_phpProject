@@ -1,0 +1,15 @@
+MVM
+
+Modèle
+Vue 
+Controller
+
+Controleur
+
+1) Valide les données reçues 
+2) Lecture d'une Action donnée par la vue -> traitement à faire
+3) Création d'un modèle, gestion des données
+4) Redirection vers la vue en donnant les données (page réponse ou page d'erreur)
+
+Le contrôleur gère toutes les erreurs
+
