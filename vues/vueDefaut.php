@@ -17,11 +17,6 @@
 		     CSS links -->
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		
-		<?php
-			// controller
-			include($rep.'controller/control.php');
-		?>
-		
 	</head>
 	
 	<header>
@@ -30,10 +25,21 @@
 	</header>
 	
 	<body>
-		<form id="form_tache" action="control.php" method="POST">
+
+        <?php
+
+            if (isset($dVueErreurs) && count($dVueErreurs)>0) {
+                echo "<h2>Erreur :</h2>";
+                foreach ($dVueErreurs as $value){
+                    echo $value."<br>";
+                }
+            }
+        ?>
+
+		<form id="form_tache" method="POST">
 			<h2>Saisir une tache</h2>
 			<label>Nom de la tache</label><br>
-			<input type="text" name="tache_nom">
+			<input title="nom" type="text" name="tache_nom">
 			<br><br>
 			
 			<label>Description de la tache</label><br>
@@ -52,8 +58,11 @@
 			<input type="text" name="tache_lieu">
 			<br><br>
 			
-			<input type="submit" name="tache_submit" value="Créer" action="filtrage">
+			<input type="submit" name="tache_submit" value="Créer">
 		</form>
+
+        <input type="hidden" name="action" value="filtrage">
+
 	</body>
 	
 	<script>

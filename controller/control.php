@@ -1,14 +1,13 @@
 <?php
 
-namespace controle;
+namespace controller;
 
-class Controller {
+class Control {
 	
 	function __construct(){
         global $rep, $vues;
 
         session_start();
-
 
         $dVueErreurs = array();
 
@@ -17,6 +16,7 @@ class Controller {
 
             switch($action){
                 case NULL:
+                    require('C:\wamp64\www\toDoList\vues\vueDefaut.php');
                     break;
 
                 case "filtrage":
@@ -25,7 +25,7 @@ class Controller {
 
                 default:
                     $dVueErreurs[] = "Erreur appel PHP (switch)";
-                    require($rep.$vues['defaut']);
+                    require('C:\wamp64\www\toDoList\vues\vueDefaut.php');
                     break;
             }
         } catch (PDOException $e){
@@ -35,23 +35,30 @@ class Controller {
             $dVueErreurs[] = "Erreur inattendue (Exception classique)";
             require ($rep.$vues['erreurs']);
         }
-
         exit(0);
     }
 
     function FiltrageTache(array $dVueErreurs){
 	    global $rep, $vues;
 
-	    $nom = $_REQUEST['nom'];
-	    // etc etc etc
-        \config\Filtrage::filtrageTache($nom, $description, $date, $duree, $lieu, $id);
+	    $nom = $_REQUEST['tache_nom'];
+	    $description = $_REQUEST['tache_desc'];
+	    $date = $_REQUEST['tache_date'];
+	    $duree = $_REQUEST['tache_time'];
+	    $lieu = $_REQUEST['tache_lieu'];
+        \config\Filtrage::filtrageTache($nom, $description, $date, $duree, $lieu, $id, $dVueErreurs);
 
-        $modele = new \modeles\Modele();
+        // $modele = new \modeles\Modele();
 
         $dVue = array(
             "nom" => $nom,
+            "description" => $description,
+            "date" => $date,
+            "duree" => $duree,
+            "lieu" => $lieu,
         );
-        require($rep.$vues['defaut']);
+
+        require('C:\wamp64\www\toDoList\vues\vueDefaut.php');
     }
 	
 
