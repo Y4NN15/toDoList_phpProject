@@ -8,7 +8,8 @@ $login="yannis";
 $mdp="phpMyAdmin0602";
 
 /* Vues */
-$vues['defaut']=__DIR__.'vues\vueDefaut.php';
-// $vues['erreurs']='vues/vueErreurs.php';
+$vues['defaut']=$rep.'vues\vueDefaut.php';
+$vues['liste']=$rep.'vues\vueListe.php';
+// $vues['erreurs']='vues\vueErreurs.php';
 
 ?>

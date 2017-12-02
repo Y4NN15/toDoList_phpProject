@@ -1,7 +1,5 @@
 <?php
 
-namespace controller;
-
 class Control {
 	
 	function __construct(){
@@ -12,11 +10,12 @@ class Control {
         $dVueErreurs = array();
 
         try {
-            $action = $_REQUEST['action'];
+            // laVariablePrend = (condition) ? (ça si vrai) : (ça si faux);
+            $action = (isset($_REQUEST['action']) ? $_REQUEST['action'] : NULL);
 
             switch($action){
                 case NULL:
-                    require('C:\wamp64\www\toDoList\vues\vueDefaut.php');
+                    $this->AfficherTaches();
                     break;
 
                 case "filtrage":
@@ -25,15 +24,15 @@ class Control {
 
                 default:
                     $dVueErreurs[] = "Erreur appel PHP (switch)";
-                    require('C:\wamp64\www\toDoList\vues\vueDefaut.php');
+                    require($vues['defaut']);
                     break;
             }
         } catch (PDOException $e){
             $dVueErreurs[] = "Erreur inattendue (Exception PDO)";
-            require($rep.$vues['erreurs']);
+            require($vues['defaut']);
         } catch (Exception $e2){
             $dVueErreurs[] = "Erreur inattendue (Exception classique)";
-            require ($rep.$vues['erreurs']);
+            require ($vues['defaut']);
         }
         exit(0);
     }
@@ -46,9 +45,7 @@ class Control {
 	    $date = $_REQUEST['tache_date'];
 	    $duree = $_REQUEST['tache_time'];
 	    $lieu = $_REQUEST['tache_lieu'];
-        \config\Filtrage::filtrageTache($nom, $description, $date, $duree, $lieu, $id, $dVueErreurs);
-
-        // $modele = new \modeles\Modele();
+        \config\Filtrage::filtrageTache($nom, $description, $date, $duree, $lieu, $dVueErreurs);
 
         $dVue = array(
             "nom" => $nom,
@@ -58,10 +55,16 @@ class Control {
             "lieu" => $lieu,
         );
 
-        require('C:\wamp64\www\toDoList\vues\vueDefaut.php');
+        require($vues['defaut']);
     }
 	
+    function AfficherTaches(){
+        global $vues, $rep;
 
+        $m = new Model();
+        $tabListe = $m->get_ListePublic();
+        require($vues['defaut']);
+    }
 }
 
 

@@ -3,14 +3,10 @@
 require_once(__DIR__.'/config/config.php');
 
 // Autoloader
-require_once(__DIR__.'/config/SplClassLoader.php');
-$myLibLoader = new SplClassLoader('controller', __DIR__);
-$myLibLoader->register();
-$myLibLoader = new SplClassLoader('config', '');
-$myLibLoader->register();
-$myLibLoader = new SplClassLoader('modeles', '');
-$myLibLoader->register();
+require_once(__DIR__.'/config/Autoload.php');
+Autoload::charger();
 
-$cont = new \controller\Control();
+
+$cont = new Control();
 
 ?>
