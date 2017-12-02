@@ -9,7 +9,7 @@ class Filtrage
         }
     }
 
-    static function filtrageTache(String &$nom, String &$description, String &$date, String &$duree, String &$lieu, &$dVueErreurs){
+    static function filtrageTache(String &$nom, String &$description, String &$date, String &$lieu, &$dVueErreurs){
         // filtrage du nom
         if (!isset($nom) || $nom == ""){
             $dVueErreurs[] = "Il n'y a pas de nom !";
@@ -40,9 +40,6 @@ class Filtrage
             $dVueErreurs[] = "La date n'est pas valide !";
             $date = "";
         }
-
-        // filtrage de la durée
-        $duree = '00:30:00';
 
         // filtrage du lieu
         if (!isset($lieu) || $lieu == ""){

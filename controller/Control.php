@@ -43,21 +43,32 @@ class Control {
 	    $nom = $_REQUEST['tache_nom'];
 	    $description = $_REQUEST['tache_desc'];
 	    $date = $_REQUEST['tache_date'];
-	    $duree = $_REQUEST['tache_time'];
 	    $lieu = $_REQUEST['tache_lieu'];
-        \config\Filtrage::filtrageTache($nom, $description, $date, $duree, $lieu, $dVueErreurs);
+        Filtrage::filtrageTache($nom, $description, $date, $lieu, $dVueErreurs);
 
-        $dVue = array(
+        $dTache = array(
             "nom" => $nom,
             "description" => $description,
             "date" => $date,
-            "duree" => $duree,
             "lieu" => $lieu,
         );
 
-        require($vues['defaut']);
+        $this->AjouterTache($dTache, $dVueErreurs);
     }
-	
+
+    function AjouterTache($tache, $dVueErreurs){
+        global $vues;
+
+        if (isset($dVueErreurs) && count($dVueErreurs)>0){
+            require($vues['defaut']);
+            return;
+        }
+
+        $model = new Model();
+        $model->addTache($tache);
+        $this->AfficherTaches();
+    }
+
     function AfficherTaches(){
         global $vues, $rep;
 

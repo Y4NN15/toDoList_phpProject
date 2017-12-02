@@ -52,10 +52,6 @@
 			<input type="date" name="tache_date">
 			<br><br>
 			
-			<label>Durée de la tache</label><br>
-			<input type="time" name="tache_time">
-			<br><br>
-			
 			<label>Lieu de la tache</label><br>
 			<input type="text" name="tache_lieu">
 			<br><br>
@@ -73,7 +69,6 @@
                     echo "NOM : ".$value->getNom()."<br>";
                     echo "DESCRIPTION : ".$value->getDescription()."<br>";
                     echo "DATE : ".$value->getDate()."<br>";
-                    echo "DUREE : ".$value->getDuree()."<br>";
                     echo "LIEU : ".$value->getLieu()."<br>";
                     echo "<br>";
                 }
