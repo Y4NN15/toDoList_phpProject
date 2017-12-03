@@ -23,7 +23,7 @@ class TacheGateway {
     }
 
     public function getListePublic(){
-        $query = 'SELECT * FROM tache';
+        $query = 'SELECT * FROM tache ORDER BY id_tache ASC';
 
         $this->con->executeQuery($query, array());
         $data = $this->con->getResults();
