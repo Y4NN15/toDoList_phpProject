@@ -66,7 +66,6 @@ class Control {
 
         $model = new Model();
         $model->addTache($tache);
-        $this->AfficherTaches();
     }
 
     function AfficherTaches(){

@@ -9,7 +9,6 @@ $mdp="phpMyAdmin0602";
 
 /* Vues */
 $vues['defaut']=$rep.'vues\vueDefaut.php';
-$vues['liste']=$rep.'vues\vueListe.php';
 // $vues['erreurs']='vues\vueErreurs.php';
 
 ?>
