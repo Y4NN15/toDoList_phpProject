@@ -38,32 +38,29 @@
             }
         ?>
 
-        <div id="tachePubliques">
-            <?php
-            if (isset($tabListe)){
-                foreach($tabListe as $value){
-                    echo "Tâche N°".$value->getIdTache()."<br>";
-                    echo "NOM : ".$value->getNom()."<br>";
-                    echo "DESCRIPTION : ".$value->getDescription()."<br>";
-                    echo "DATE : ".$value->getDate()."<br>";
-                    echo "LIEU : ".$value->getLieu()."<br>";
-                    echo "<br>";
-                }
-            }
-            ?>
-        </div>
+		<form id="form_tache" method="POST">
+			<h2>Saisir votre identifiant et votre mot de passe </h2>
+			<label>Identifiant</label><br>
+			<input title="nom" type="text" name="login">
+			<br><br>
+			
+			<label>mot de passe</label><br>
+			<input type="password" name="mdp">
+			<br><br>
+			
+			<input type="submit" name="connecter" value="Se connecter">
 
-    <form id="appelCreation">
-        <input type="submit" name="creer_tache" value="Ajouter une tache">
+            <input type="hidden" name="action" value="filtrageConnexion">
+		</form>
 
-        <input type="hidden" name="action" value="appelVueCreation">
-    </form>
+        <p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
 
-    <form id="seconnecter">
-        <input type="submit" name="se_connecter" value="Se connecter...">
+        <form>
+            <input type="submit" name="voir_liste" value="Voir la liste de tâches">
+            <br>
+            <input type="hidden" name="action" value="appelVueDefaut">
+        </form>
 
-        <input type="hidden" name="action" value="appelVueConnexion">
-    </form>
 	</body>
 	
 	<script>

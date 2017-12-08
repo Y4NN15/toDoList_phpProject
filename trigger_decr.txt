@@ -1,0 +1,24 @@
+
+CREATE TRIGGER DECR_ID_TACHE_QUAND_SUPPR AFTER DELETE 
+ON tache FOR EACH ROW
+BEGIN
+DECLARE id_current INT;
+DECLARE max_id INT;
+DECLARE iterator INT;
+DECLARE x INT;
+
+SET x = 0;
+   
+   SELECT @id_current := id_tache FROM OLD; -- 6
+   SELECT @max_id := MAX(id_tache) FROM tache; -- 10
+   
+   SET iterator = max_id - id_current; -- 4
+   
+   WHILE x < iterator
+   	UPDATE tache
+    SET id_tache = (SELECT id_tache FROM tache WHERE id_tache = @id_current)
+    WHERE id_tache = (SELECT id_tache FROM tache WHERE id_tache = @id_current+1)
+    SET id_current = id_current + 1;
+   END WHILE;
+END
+delimiter ;

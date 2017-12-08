@@ -1,11 +1,9 @@
 <?php
 
-class Control {
+class VisiteurController {
 	
 	function __construct(){
         global $rep, $vues;
-
-        session_start();
 
         $dVueErreurs = array();
 
@@ -18,8 +16,24 @@ class Control {
                     $this->AfficherTaches();
                     break;
 
+                case "appelVueDefaut":
+                    $this->AfficherTaches();
+                    break;
+
                 case "filtrage":
                     $this->FiltrageTache($dVueErreurs);
+                    break;
+
+                case "appelVueCreation":
+                    require($vues['creation']);
+                    break;
+
+                case "filtrageConnexion":
+                    $this->SeConnecter($dVueErreurs);
+                    break;
+
+                case "appelVueConnexion":
+                    require($vues['connexion']);
                     break;
 
                 default:
@@ -60,12 +74,13 @@ class Control {
         global $vues;
 
         if (isset($dVueErreurs) && count($dVueErreurs)>0){
-            require($vues['defaut']);
+            require($vues['creation']);
             return;
         }
 
         $model = new Model();
         $model->addTache($tache);
+        $this->AfficherTaches();
     }
 
     function AfficherTaches(){
@@ -74,6 +89,16 @@ class Control {
         $m = new Model();
         $tabListe = $m->get_ListePublic();
         require($vues['defaut']);
+    }
+
+    function SeConnecter($dVueErreurs){
+	    global $vus, $rep;
+
+	    $login = $_REQUEST['login'];
+	    $mdp = $_REQUEST['mdp'];
+
+	    $c = new MdlUtilisateur();
+	    $c->connexion($login, $mdp, $dVueErreurs);
     }
 }
 
