@@ -59,11 +59,21 @@
         <input type="hidden" name="action" value="appelVueCreation">
     </form>
 
-    <form id="seconnecter">
-        <input type="submit" name="se_connecter" value="Se connecter...">
+        <?php
+        if (!isset($_SESSION['login'])) {
+            echo "<form id=\"seconnecter\">
+            <input type=\"submit\" name=\"se_connecter\" value=\"Se connecter...\">
 
-        <input type="hidden" name="action" value="appelVueConnexion">
-    </form>
+            <input type=\"hidden\" name=\"action\" value=\"appelVueConnexion\">
+        </form>";
+        } else {
+            echo "<form id=\"sedeconnecter\">
+            <input type=\"submit\" name=\"se_deconnecter\" value=\"Se déconnecter...\">
+
+            <input type=\"hidden\" name=\"action\" value=\"deconnexion\">
+        </form>";
+        }
+     ?>
 	</body>
 	
 	<script>

@@ -2,7 +2,11 @@
 
 class UtilisateurGateway {
 
-	//constructeur vide
+	private $con;
+
+	public function __construct(Connexion $con){
+	    $this->con=$con;
+    }
 
     public function isExist($loginU,$mdpU){
         $query = 'SELECT * FROM utilisateur WHERE login = :loginU AND mdp = :mdpU';
@@ -13,13 +17,12 @@ class UtilisateurGateway {
         ));
 	$data = $this->con->getResults();
 
-        foreach($data as $value){
-            $tab[] = 1;
-        }
-        if($tab[0]= 1){
-		return TRUE;
+    if ($data == NULL){
+        return FALSE;
 	}
-	return FALSE;
+	else {
+        return TRUE;
     }
-	
+
+    }
 }

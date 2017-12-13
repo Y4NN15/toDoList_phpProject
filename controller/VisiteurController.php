@@ -36,6 +36,10 @@ class VisiteurController {
                     require($vues['connexion']);
                     break;
 
+                case "deconnexion":
+                    $this->SeDeconnecter($dVueErreurs);
+                    break;
+
                 default:
                     $dVueErreurs[] = "Erreur appel PHP (switch)";
                     require($vues['defaut']);
@@ -92,13 +96,21 @@ class VisiteurController {
     }
 
     function SeConnecter($dVueErreurs){
-	    global $vus, $rep;
+	    global $vues, $rep;
 
 	    $login = $_REQUEST['login'];
 	    $mdp = $_REQUEST['mdp'];
 
 	    $c = new MdlUtilisateur();
 	    $c->connexion($login, $mdp, $dVueErreurs);
+	    $this->AfficherTaches();
+    }
+    function SeDeconnecter($dVueErreurs){
+	    global $vues;
+
+	    $d = new MdlUtilisateur();
+	    $d->deconnexion();
+	    $this->AfficherTaches();
     }
 }
 
