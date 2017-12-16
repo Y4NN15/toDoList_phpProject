@@ -40,6 +40,14 @@ class VisiteurController {
                     $this->SeDeconnecter($dVueErreurs);
                     break;
 
+                case "supprTache":
+                    $this->SupprimerTache($dVueErreurs);
+                    break;
+
+                case "appelVuePrive":
+                    $this->AfficherTachesPrive($dVueErreurs);
+                    break;
+
                 default:
                     $dVueErreurs[] = "Erreur appel PHP (switch)";
                     require($vues['defaut']);
@@ -88,7 +96,7 @@ class VisiteurController {
     }
 
     function AfficherTaches(){
-        global $vues, $rep;
+        global $vues;
 
         $m = new Model();
         $tabListe = $m->get_ListePublic();
@@ -96,8 +104,6 @@ class VisiteurController {
     }
 
     function SeConnecter($dVueErreurs){
-	    global $vues, $rep;
-
 	    $login = $_REQUEST['login'];
 	    $mdp = $_REQUEST['mdp'];
 
@@ -105,12 +111,33 @@ class VisiteurController {
 	    $c->connexion($login, $mdp, $dVueErreurs);
 	    $this->AfficherTaches();
     }
-    function SeDeconnecter($dVueErreurs){
-	    global $vues;
 
+    function SeDeconnecter(){
 	    $d = new MdlUtilisateur();
 	    $d->deconnexion();
 	    $this->AfficherTaches();
+    }
+
+    function SupprimerTache($dVueErreurs){
+	    $tacheASuppr = $_REQUEST['idTacheCurrent'];
+
+        $model = new Model();
+        $model->supprTache($tacheASuppr);
+        $this->AfficherTaches();
+    }
+
+    function AfficherTachesPrive($dVueErreurs){
+        global $vues;
+
+        if(!isset($_SESSION['login'])){
+            $dVueErreurs[] = "Vous n'êtes pas connecté !<br>";
+            require($vues['defaut']);
+            return;
+        }
+        $mp = new MdlUtilisateur();
+        $Liste = $mp->get_ListePrive($_SESSION['login']);
+        $tabListePrive = $Liste->getArrTache();
+        require($vues['prive']);
     }
 }
 
