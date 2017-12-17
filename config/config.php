@@ -8,7 +8,7 @@ $login="yannis";
 $mdp="phpMyAdmin0602";
 
 /* Vues */
-$vues['defaut']=$rep.'vues\vueDefaut.php';
+$vues['defaut']=$rep.'vues\vuePublic.php';
 $vues['creation']=$rep.'vues\vueCreation.php';
 $vues['connexion']=$rep.'vues\vueConnexion.php';
 $vues['prive']=$rep.'vues\vuePrive.php';

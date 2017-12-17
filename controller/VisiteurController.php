@@ -2,22 +2,22 @@
 
 class VisiteurController {
 	
-	function __construct(){
+	function __construct($action){
         global $rep, $vues;
 
         $dVueErreurs = array();
 
         try {
             // laVariablePrend = (condition) ? (ça si vrai) : (ça si faux);
-            $action = (isset($_REQUEST['action']) ? $_REQUEST['action'] : NULL);
+            // $action = (isset($_REQUEST['action']) ? $_REQUEST['action'] : NULL);
 
             switch($action){
                 case NULL:
-                    $this->AfficherTaches();
+                    $this->AfficherTachesPubliques();
                     break;
 
-                case "appelVueDefaut":
-                    $this->AfficherTaches();
+                case "appelVuePublic":
+                    $this->AfficherTachesPubliques();
                     break;
 
                 case "filtrage":
@@ -36,16 +36,8 @@ class VisiteurController {
                     require($vues['connexion']);
                     break;
 
-                case "deconnexion":
-                    $this->SeDeconnecter($dVueErreurs);
-                    break;
-
                 case "supprTache":
                     $this->SupprimerTache($dVueErreurs);
-                    break;
-
-                case "appelVuePrive":
-                    $this->AfficherTachesPrive($dVueErreurs);
                     break;
 
                 default:
@@ -92,10 +84,10 @@ class VisiteurController {
 
         $model = new Model();
         $model->addTache($tache);
-        $this->AfficherTaches();
+        $this->AfficherTachesPubliques();
     }
 
-    function AfficherTaches(){
+    function AfficherTachesPubliques(){
         global $vues;
 
         $m = new Model();
@@ -109,13 +101,7 @@ class VisiteurController {
 
 	    $c = new MdlUtilisateur();
 	    $c->connexion($login, $mdp, $dVueErreurs);
-	    $this->AfficherTaches();
-    }
-
-    function SeDeconnecter(){
-	    $d = new MdlUtilisateur();
-	    $d->deconnexion();
-	    $this->AfficherTaches();
+	    $this->AfficherTachesPubliques();
     }
 
     function SupprimerTache($dVueErreurs){
@@ -123,22 +109,9 @@ class VisiteurController {
 
         $model = new Model();
         $model->supprTache($tacheASuppr);
-        $this->AfficherTaches();
+        $this->AfficherTachesPubliques();
     }
 
-    function AfficherTachesPrive($dVueErreurs){
-        global $vues;
-
-        if(!isset($_SESSION['login'])){
-            $dVueErreurs[] = "Vous n'êtes pas connecté !<br>";
-            require($vues['defaut']);
-            return;
-        }
-        $mp = new MdlUtilisateur();
-        $Liste = $mp->get_ListePrive($_SESSION['login']);
-        $tabListePrive = $Liste->getArrTache();
-        require($vues['prive']);
-    }
 }
 
 

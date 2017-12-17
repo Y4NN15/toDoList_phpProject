@@ -72,7 +72,7 @@
         </form>";
         } else {
 
-            echo $_SESSION['login'];
+            echo $_SESSION['login']; // mouchard
             echo "<form id=\"sedeconnecter\">
             <input type=\"submit\" name=\"se_deconnecter\" value=\"Se déconnecter...\">
 

@@ -58,7 +58,7 @@
         <form>
             <input type="submit" name="voir_liste" value="Voir la liste de tâches">
             <br>
-            <input type="hidden" name="action" value="appelVueDefaut">
+            <input type="hidden" name="action" value="appelVuePublic">
         </form>
 
 	</body>
