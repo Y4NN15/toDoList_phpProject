@@ -24,9 +24,19 @@ class VisiteurController {
                     $this->FiltrageTache($dVueErreurs);
                     break;
 
+                case "inscription":
+                    $this->FiltrageInscription($dVueErreurs);
+                    break;
+
+
                 case "appelVueCreation":
                     require($vues['creation']);
                     break;
+
+                case "appelVueInscription":
+                    require($vues['inscription']);
+                    break;
+    
 
                 case "filtrageConnexion":
                     $this->SeConnecter($dVueErreurs);
@@ -111,7 +121,16 @@ class VisiteurController {
         $model->supprTache($tacheASuppr);
         $this->AfficherTachesPubliques();
     }
+    function FiltrageInscription(array $dVueErreurs){
+        global $rep, $vues;
 
+        $login = $_REQUEST['login'];
+        $mdp = $_REQUEST['mdp'];
+        Filtrage::filtrageUser($login, $mdp);
+        $model = new MdlUtilisateur();
+        $model->addUser($login, $mdp);
+        $this->AfficherTachesPubliques();
+    }
 }
 
 

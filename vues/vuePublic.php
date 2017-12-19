@@ -62,6 +62,11 @@
 
         <input type="hidden" name="action" value="appelVueCreation">
     </form>
+    <form id="appelInscription">
+        <input type="submit" name="inscription" value="s'inscrire">
+
+        <input type="hidden" name="action" value="appelVueInscription">
+    </form>
 
         <?php
         if (!isset($_SESSION['login'])) {

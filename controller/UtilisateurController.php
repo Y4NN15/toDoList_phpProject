@@ -37,14 +37,14 @@ class UtilisateurController
 
     function AfficherTachesPrive($dVueErreurs){
         global $vues;
-
-        if(!isset($_SESSION['login'])){
+         $log = $_SESSION['login'];
+        if(!isset($log)){
             $dVueErreurs[] = "Vous n'êtes pas connecté !<br>";
             require($vues['defaut']);
             return;
         }
         $mp = new MdlUtilisateur();
-        $Liste = $mp->get_ListePrive($_SESSION['login']);
+        $Liste = $mp->get_ListePrive($log);
         $tabListePrive = $Liste->getArrTache();
         require($vues['prive']);
     }

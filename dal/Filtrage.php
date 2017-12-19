@@ -51,4 +51,27 @@ class Filtrage
             $lieu = "";
         };
     }
+
+
+     static function filtrageUser(String &$login, String &$mdp){
+        // filtrage du login
+        if (!isset($login) || $login == ""){
+            $dVueErreurs[] = "Il n'y a pas de login !";
+            $login = "";
+        }
+        if ($login != filter_var($login, FILTER_SANITIZE_STRING)){
+            $dVueErreurs[] = "Le login n'est pas valide !";
+            $login = "";
+        };
+
+        // filtrage de la mdp
+        if (!isset($mdp) || $mdp == ""){
+            $dVueErreurs[] = "Il n'y a pas de mdp !";
+            $mdp = "";
+        }
+        if ($mdp != filter_var($mdp, FILTER_SANITIZE_STRING)){
+            $dVueErreurs[] = "La mdp n'est pas valide !";
+            $mdp = "";
+        };
+    }
 }

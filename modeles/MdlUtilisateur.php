@@ -24,7 +24,7 @@ class MdlUtilisateur{
 		$_SESSION = array();
     }
 
-    function get_ListePrive($id) {
+    function get_ListePrive($id): array{
         global $rep, $dsn, $login, $mdp;
 
         $connect = new Connexion($dsn, $login, $mdp);
@@ -38,6 +38,19 @@ class MdlUtilisateur{
 
         $g = new TacheGateway(new Connexion($dsn, $login, $mdp));
         $trash = $g->insertPrive($tache['nom'], $tache['description'], $tache['date'], $tache['lieu'], NULL, $id);
+    }
+    function addUser($login, $mdp){
+        global $vues, $dsn, $login, $mdp, $_SESSION;
+
+        $g = new UtilisateurGateway(new Connexion($dsn, $login, $mdp));
+        $bool = $g->isloginSet($loginU);
+        if($bool){
+            $dVueErreurs[] = "Login déja existant <br>";
+            require($vues['inscription']);
+            exit(0);
+        }
+
+        $g->inscription($login, $mdp);
     }
 }
 

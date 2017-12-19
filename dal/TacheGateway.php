@@ -43,7 +43,7 @@ class TacheGateway {
         return $tab;
     }
 
-    public function getListePrive($id){
+    public function getListePrive($id): ListeTache{
         $query = 'SELECT * FROM tachePrive WHERE ID = :idU ORDER BY id_tache ASC';
 
         $this->con->executeQuery($query, array(':idU' => array($id, PDO::PARAM_STR)));

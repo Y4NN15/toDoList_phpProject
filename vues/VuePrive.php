@@ -60,7 +60,7 @@
     </form>
 
         <?php
-        if (!isset($_SESSION['login'])) {
+        if (!isset($log)) {
             echo "<form id=\"seconnecter\">
             <input type=\"submit\" name=\"se_connecter\" value=\"Se connecter...\">
 
