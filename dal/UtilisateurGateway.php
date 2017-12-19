@@ -8,7 +8,7 @@ class UtilisateurGateway {
 	    $this->con=$con;
     }
 
-    public function isExist($loginU,$mdpU): value{
+    public function isExist($loginU,$mdpU){
         global $dsn, $login, $mdp;
         $query = 'SELECT * FROM utilisateur WHERE login = :loginU';
         $connect = new Connexion($dsn, $login, $mdp);
@@ -17,29 +17,34 @@ class UtilisateurGateway {
         ));
         $data = $connect->getResults();
         foreach($data as $value){
+            echo "mot de pass: ".$mdpU."<br>";
+            echo password_hash($mdpU, PASSWORD_BCRYPT)."<br>";
+            echo "MOT DE PASS :".$value['mdp']."<br>";
             if(password_verify($mdpU, $value['mdp'])){
+                echo "lol";
                 return TRUE;
-            }
+            } else { echo "sad";}
         }
-
         return FALSE;
     }
-    public function inscription($login, $mdp): value{
+
+    public function inscription($loginU, $mdpU){
         global $dsn, $login, $mdp;
-        $mdpU = password_hash($mdp);
-        if(!$mdpU){
+        $mdp_hash = password_hash($mdpU, PASSWORD_BCRYPT);
+        //if(!$mdp_hash){
             //exeption
-        }
+        //}
         $query = 'INSERT INTO Utilisateur VALUES (:nom, :mdpU)';
         $connect = new Connexion($dsn, $login, $mdp);
         $connect->executeQuery($query, array(
-            ':nom' => array($login, PDO::PARAM_STR),
-            ':mdpU' => array($mdpU, PDO::PARAM_STR)
+            ':nom' => array($loginU, PDO::PARAM_STR),
+            ':mdpU' => array($mdp_hash, PDO::PARAM_STR)
         ));
 
         return $connect->lastInsertId();
     }
-    public function isloginSet($loginU): value{
+
+    public function isloginSet($loginU){
         global $dsn, $login, $mdp;
         $query = 'SELECT * FROM utilisateur WHERE login = :loginU';
         $connect = new Connexion($dsn, $login, $mdp);
@@ -47,7 +52,7 @@ class UtilisateurGateway {
             ':loginU' => array($loginU, PDO::PARAM_STR)
         ));
         $data = $connect->getResults();
-        if(isset($data)){
+        if($data == NULL){
                 return TRUE;
         }
 

@@ -28,7 +28,6 @@ class VisiteurController {
                     $this->FiltrageInscription($dVueErreurs);
                     break;
 
-
                 case "appelVueCreation":
                     require($vues['creation']);
                     break;
@@ -36,7 +35,6 @@ class VisiteurController {
                 case "appelVueInscription":
                     require($vues['inscription']);
                     break;
-    
 
                 case "filtrageConnexion":
                     $this->SeConnecter($dVueErreurs);

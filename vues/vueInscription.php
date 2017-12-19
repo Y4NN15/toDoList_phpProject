@@ -49,7 +49,7 @@ if (isset($dVueErreurs) && count($dVueErreurs)>0) {
     <br><br>
 
 
-
+    <input type="submit" name="submitInscription" value="submitInscr">
     <input type="hidden" name="action" value="inscription">
 </form>
 </body>

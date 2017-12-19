@@ -39,18 +39,18 @@ class MdlUtilisateur{
         $g = new TacheGateway(new Connexion($dsn, $login, $mdp));
         $trash = $g->insertPrive($tache['nom'], $tache['description'], $tache['date'], $tache['lieu'], NULL, $id);
     }
-    function addUser($login, $mdp){
+    function addUser($loginU, $mdp){
         global $vues, $dsn, $login, $mdp, $_SESSION;
 
         $g = new UtilisateurGateway(new Connexion($dsn, $login, $mdp));
         $bool = $g->isloginSet($loginU);
-        if($bool){
+        if(!$bool){
             $dVueErreurs[] = "Login déja existant <br>";
             require($vues['inscription']);
             exit(0);
         }
 
-        $g->inscription($login, $mdp);
+        $g->inscription($loginU, $mdp);
     }
 }
 
