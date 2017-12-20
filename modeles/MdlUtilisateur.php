@@ -14,7 +14,6 @@ class MdlUtilisateur{
 			require($vues['connexion']);
 			exit(0);
 		}
-
 		$_SESSION['login']= $loginU;
     }
 

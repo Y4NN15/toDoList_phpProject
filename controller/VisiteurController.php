@@ -104,11 +104,8 @@ class VisiteurController {
     }
 
     function SeConnecter($dVueErreurs){
-	    $login = $_REQUEST['login'];
-	    $mdp = $_REQUEST['mdp'];
-
 	    $c = new MdlUtilisateur();
-	    $c->connexion($login, $mdp, $dVueErreurs);
+	    $c->connexion($_REQUEST['login'], $_REQUEST['mdp'], $dVueErreurs);
 	    $this->AfficherTachesPubliques();
     }
 

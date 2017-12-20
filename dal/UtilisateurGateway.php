@@ -17,30 +17,29 @@ class UtilisateurGateway {
         ));
         $data = $connect->getResults();
         foreach($data as $value){
-            echo "mot de pass: ".$mdpU."<br>";
-            echo password_hash($mdpU, PASSWORD_BCRYPT)."<br>";
-            echo "MOT DE PASS :".$value['mdp']."<br>";
+            /* echo "Mot de passe entré : ".$mdpU."<br>";
+            echo password_hash($mdpU, PASSWORD_DEFAULT)."<br>";
+            echo "MOT DE PASSE EN BD HASHE :".$value['mdp']."<br>"; */
             if(password_verify($mdpU, $value['mdp'])){
-                echo "lol";
                 return TRUE;
-            } else { echo "sad";}
+            } else {
+                return FALSE;
+            }
         }
-        return FALSE;
     }
 
     public function inscription($loginU, $mdpU){
         global $dsn, $login, $mdp;
-        $mdp_hash = password_hash($mdpU, PASSWORD_BCRYPT);
-        //if(!$mdp_hash){
-            //exeption
-        //}
-        $query = 'INSERT INTO Utilisateur VALUES (:nom, :mdpU)';
+        $mdp_hash = password_hash($mdpU, PASSWORD_DEFAULT);
+        if(!$mdp_hash){
+            throw new Exception("erreur hashage !");
+        }
+        $query = 'INSERT INTO utilisateur VALUES (:nom, :mdpUser)';
         $connect = new Connexion($dsn, $login, $mdp);
         $connect->executeQuery($query, array(
             ':nom' => array($loginU, PDO::PARAM_STR),
-            ':mdpU' => array($mdp_hash, PDO::PARAM_STR)
+            ':mdpUser' => array($mdp_hash, PDO::PARAM_STR)
         ));
-
         return $connect->lastInsertId();
     }
 
