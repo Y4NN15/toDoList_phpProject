@@ -7,13 +7,15 @@ class Tache{
     private $date;
     private $lieu;
     private $id_tache;
+      private $id_liste;
 
-    function __construct($nom, $description, $date, $lieu, $id_tache){
+    function __construct($nom, $description, $date, $lieu, $id_tache, $id_liste){
 	    $this->nom=$nom;
 	    $this->description=$description;
     	$this->date=$date; //date('d/m/y')
     	$this->lieu=$lieu;
     	$this->id_tache=$id_tache;
+        $this->id_liste=$id_liste;
     }
 
     public function getNom() {
@@ -23,6 +25,11 @@ class Tache{
     public function getDescription() {
         return $this->description;
     }
+    
+    public function getIdListe() {
+        return $this->id_liste;
+    }
+
 
     public function getDate()
     {

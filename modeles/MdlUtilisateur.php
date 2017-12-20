@@ -38,6 +38,22 @@ class MdlUtilisateur{
         $g = new TacheGateway(new Connexion($dsn, $login, $mdp));
         $trash = $g->insertPrive($tache['nom'], $tache['description'], $tache['date'], $tache['lieu'], NULL, $id);
     }
+
+    function addListePrive($nom, $idU) {
+        global $dsn, $login, $mdp;
+
+        $g = new TacheGateway(new Connexion($dsn, $login, $mdp));
+        $trash = $g->insertListePrive($nom, NULL, $idU);
+    }
+
+
+    function supprTachePrive($id, $idU){
+        global $dsn, $login, $mdp;
+
+        $g = new TacheGateway(new Connexion($dsn, $login, $mdp));
+        $g->deleteP($id, $idU);
+    }
+    
     function addUser($loginU, $mdp){
         global $vues, $dsn, $login, $mdp, $_SESSION;
 
