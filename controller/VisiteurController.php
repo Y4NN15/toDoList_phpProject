@@ -29,6 +29,7 @@ class VisiteurController {
                     break;
 
                 case "appelVueCreation":
+                    $_SESSION['liste']= $_REQUEST['idListeCurrent'];
                     require($vues['creation']);
                     break;
 
@@ -89,9 +90,9 @@ class VisiteurController {
             require($vues['creation']);
             return;
         }
-
+        $idU = $_SESSION['liste'];
         $model = new Model();
-        $model->addTache($tache);
+        $model->addTache($tache, $idU);
         $this->AfficherTachesPubliques();
     }
 
@@ -114,9 +115,10 @@ class VisiteurController {
 
     function SupprimerTache($dVueErreurs){
 	    $tacheASuppr = $_REQUEST['idTacheCurrent'];
+        $id_L = $_REQUEST['idListeCurrent'];
 
         $model = new Model();
-        $model->supprTache($tacheASuppr);
+        $model->supprTache($tacheASuppr, $idL);
         $this->AfficherTachesPubliques();
     }
     function FiltrageInscription(array $dVueErreurs){

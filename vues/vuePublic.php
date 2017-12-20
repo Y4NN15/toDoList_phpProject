@@ -42,26 +42,30 @@
             <?php
             if (isset($tabListe)){
                 foreach($tabListe as $value){
-                    echo "NOM : ".$value->getNom()."<br>";
-                    echo "DESCRIPTION : ".$value->getDescription()."<br>";
-                    echo "DATE : ".$value->getDate()."<br>";
-                    echo "LIEU : ".$value->getLieu()."<br>";
-                    echo "<form id=\"supprTache\">
+                    foreach($value as $val){
+                        echo "NOM : ".$val->getNom()."<br>";
+                        echo "DESCRIPTION : ".$val->getDescription()."<br>";
+                        echo "DATE : ".$val->getDate()."<br>";
+                        echo "LIEU : ".$val->getLieu()."<br>";
+                        echo "<form id=\"supprTache\">
                             <input type=\"submit\" name=\"suppr_tache\" value=\"Supprimer la tache\">
-                            <input type=\"hidden\" name=\"idTacheCurrent\" value=".$value->getIdTache().">
+                            <input type=\"hidden\" name=\"idTacheCurrent\" value=".$val->getIdTache().">
+                            <input type=\"hidden\" name=\"idListeCurrent\" value=".$value->getIdListe().">
                             <input type=\"hidden\" name=\"action\" value=\"supprTache\">
                            </form>";
-                    echo "<br>";
-                }
+                        echo "<br>";
+                    }
+                    echo "<form id=\"appelCreation\">
+                            <input type=\"submit\" name=\"creer_tache\" value=\"Ajouter une tache\">
+                            <input type=\"hidden\" name=\"idListeCurrent\" value=".$value->getIdListe().">
+                            <input type=\"hidden\" name=\"action\" value=\"appelVueCreation\">
+                           </form>";
+                        echo "<br>";
+                }    
             }
             ?>
         </div>
 
-    <form id="appelCreation">
-        <input type="submit" name="creer_tache" value="Ajouter une tache">
-
-        <input type="hidden" name="action" value="appelVueCreation">
-    </form>
     <form id="appelInscription">
         <input type="submit" name="inscription" value="s'inscrire">
 
